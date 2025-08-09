@@ -41,7 +41,7 @@ jobs:
         id: instrumented_tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 28
+          api-level: 33
           arch: arm64-v8a
           target: default
           emulator-boot-timeout: 900
