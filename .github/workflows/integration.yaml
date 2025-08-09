@@ -8,7 +8,7 @@ on:
 
 jobs:
   integrate:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     permissions:  # needed for "Publish Test Results" action
       contents: read
       issues: read
