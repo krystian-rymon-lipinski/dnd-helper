@@ -42,8 +42,9 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 28
+          arch: aarch64
           target: default
-          emulator-boot-timeout: 1800
+          emulator-boot-timeout: 900
           emulator-options: "-no-window -no-audio -no-snapshot -no-boot-anim"
           script: ./gradlew connectedDebugAndroidTest
         continue-on-error: true
