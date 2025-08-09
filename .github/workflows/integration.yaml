@@ -41,7 +41,7 @@ jobs:
         id: instrumented_tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 26
+          api-level: 28
           script: ./gradlew connectedDebugAndroidTest
         continue-on-error: true
 
@@ -52,7 +52,7 @@ jobs:
           path: app/build/**/TEST-*.xml
 
       - name: Test Results Presentation
-        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        uses: EnricoMi/publish-unit-test-result-action/macos@v2
         with:
           files: app/build/**/TEST-*.xml
 
