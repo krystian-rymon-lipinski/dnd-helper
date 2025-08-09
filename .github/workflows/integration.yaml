@@ -43,7 +43,7 @@ jobs:
         with:
           api-level: 28
           target: default
-          emulator-boot-timeout-seconds: 600
+          emulator-boot-timeout: 600
           emulator-options: "-no-window -no-audio -no-snapshot -no-boot-anim"
           script: ./gradlew connectedDebugAndroidTest
         continue-on-error: true
