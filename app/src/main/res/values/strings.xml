@@ -1,3 +1,38 @@
 <resources>
-    <string name="app_name">DndHelper</string>
+    <string name="app_name">DndHelper</string> <!-- Example App Name -->
+
+    <string name="basics_title">Basics</string>
+    <string name="ability_scores_title">Ability Scores</string>"
+
+    <!-- Character Core Stats -->
+    <string name="stat_hp">HP</string>
+    <string name="stat_hp_long">Hit Points</string>
+    <string name="stat_ac">AC</string>
+    <string name="stat_ac_long">Armor Class</string>
+    <string name="stat_initiative">Initiative</string>
+    <string name="stat_speed">Speed</string>
+
+    <!-- Ability Scores (Short Names) -->
+    <string name="ability_str">STR</string>
+    <string name="ability_dex">DEX</string>
+    <string name="ability_con">CON</string>
+    <string name="ability_int">INT</string>
+    <string name="ability_wis">WIS</string>
+    <string name="ability_cha">CHA</string>
+
+    <!-- Ability Scores (Long Names) -->
+    <string name="ability_strength">Strength</string>
+    <string name="ability_dexterity">Dexterity</string>
+    <string name="ability_constitution">Constitution</string>
+    <string name="ability_intelligence">Intelligence</string>
+    <string name="ability_wisdom">Wisdom</string>
+    <string name="ability_charisma">Charisma</string>
+
+    <!-- Example of a string that might use one of these -->
+    <string name="character_strength_score">Strength Score: %1$d</string>
+
+    <!-- You can add more strings as needed for your app -->
+    <string name="welcome_message">Welcome to your D&amp;D Helper!</string>
+
+    <!-- <string name="app_name">D&amp;D Helper</string> -->
 </resources>
