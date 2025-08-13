@@ -11,6 +11,7 @@
     <string name="stat_ac_long">Armor Class</string>
     <string name="stat_initiative">Initiative</string>
     <string name="stat_speed">Speed</string>
+    <string name="level">Level: %d</string>
 
     <!-- Ability Scores (Short Names) -->
     <string name="ability_str">STR</string>

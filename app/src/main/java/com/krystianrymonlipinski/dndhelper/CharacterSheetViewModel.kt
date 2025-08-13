@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterSheetViewModel @Inject constructor(
-    private val characterSheetDataSource: CharacterSheetDataSource
+    characterSheetDataSource: CharacterSheetDataSource
 ) : ViewModel()  {
 
     val chosenCharacterState: StateFlow<CharacterState> = characterSheetDataSource.getCharacterByName("Bob").stateIn(

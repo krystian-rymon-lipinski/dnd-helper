@@ -1,6 +1,7 @@
 package com.krystianrymonlipinski.dndhelper.ui.character_sheet
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,6 +38,11 @@ fun CharacterSheetScreen(
     Column(
         modifier = modifier.fillMaxSize()
     ) {
+        NameAndLevelRow(
+            modifier = modifier,
+            name = characterState.value.basicsState.name,
+            level = characterState.value.basicsState.level
+        )
         RowTitle(stringRes = R.string.basics_title, modifier = modifier)
         CharacterBasics(characterBasicsState = characterState.value.basicsState)
         HorizontalDivider(Modifier, DividerDefaults.Thickness, DividerDefaults.color)
@@ -47,6 +53,25 @@ fun CharacterSheetScreen(
     }
 }
 
+
+@Composable
+fun NameAndLevelRow(
+    modifier: Modifier = Modifier,
+    name: String,
+    level: Int
+) {
+    Row(
+        modifier = modifier
+            .background(color = MaterialTheme.colorScheme.primary)
+            .fillMaxWidth(1f)
+            .wrapContentHeight()
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        RowTitle(name, modifier)
+        RowTitle(stringResource(id = R.string.level, level), modifier)
+    }
+}
 
 @Composable
 fun CharacterBasics(
@@ -92,6 +117,16 @@ fun CharacterAbilityScores(abilityScoresState: CharacterAbilityScoresState) {
 fun RowTitle(@StringRes stringRes: Int, modifier: Modifier) {
     Text(
         text = stringResource(id = stringRes),
+        modifier = modifier.absoluteOffset(x = 16.dp, y = 8.dp),
+        style = MaterialTheme.typography.headlineSmall
+            .copy(fontWeight = FontWeight.Bold)
+    )
+}
+
+@Composable
+fun RowTitle(text: String, modifier: Modifier) {
+    Text(
+        text = text,
         modifier = modifier.absoluteOffset(x = 16.dp, y = 8.dp),
         style = MaterialTheme.typography.headlineSmall
             .copy(fontWeight = FontWeight.Bold)
