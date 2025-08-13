@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absoluteOffset
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,25 +21,28 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.krystianrymonlipinski.dndhelper.CharacterSheetViewModel
 import com.krystianrymonlipinski.dndhelper.R
 import com.krystianrymonlipinski.dndhelper.model.CharacterAbilityScoresState
 import com.krystianrymonlipinski.dndhelper.model.CharacterBasicsState
-import com.krystianrymonlipinski.dndhelper.model.CharacterState
 
 @Composable
 fun CharacterSheetScreen(
     modifier: Modifier = Modifier,
-    characterState: CharacterState = CharacterState()
+    viewModel: CharacterSheetViewModel = hiltViewModel()
 ) {
+    val characterState = viewModel.chosenCharacterState.collectAsStateWithLifecycle()
     Column(
         modifier = modifier.fillMaxSize()
     ) {
         RowTitle(stringRes = R.string.basics_title, modifier = modifier)
-        CharacterBasics(characterBasicsState = characterState.basicsState)
+        CharacterBasics(characterBasicsState = characterState.value.basicsState)
         HorizontalDivider(Modifier, DividerDefaults.Thickness, DividerDefaults.color)
 
         RowTitle(stringRes = R.string.ability_scores_title, modifier = modifier)
-        CharacterAbilityScores(abilityScoresState = characterState.abilityScoresState)
+        CharacterAbilityScores(abilityScoresState = characterState.value.abilityScoresState)
         HorizontalDivider(Modifier, DividerDefaults.Thickness, DividerDefaults.color)
     }
 }

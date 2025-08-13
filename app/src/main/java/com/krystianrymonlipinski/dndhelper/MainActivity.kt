@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CharacterSheetScreen(Modifier, hiltViewModel<CharacterSheetViewModel>().state)
+                    CharacterSheetScreen(Modifier, hiltViewModel<CharacterSheetViewModel>())
                 }
             }
         }
