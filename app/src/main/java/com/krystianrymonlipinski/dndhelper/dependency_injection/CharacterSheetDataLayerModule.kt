@@ -10,13 +10,10 @@ import kotlinx.coroutines.Dispatchers
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class CharacterSheetViewModelModule {
+class CharacterSheetDataLayerModule {
 
     @Provides
-    fun provideCharacterSheetDataSource() = CharacterSheetDataSource(provideIoCoroutineContext())
-
-    @Provides
-    fun provideIoCoroutineContext() = Dispatchers.IO
+    fun provideCharacterSheetDataSource() = CharacterSheetDataSource(Dispatchers.IO)
 
 
 }
