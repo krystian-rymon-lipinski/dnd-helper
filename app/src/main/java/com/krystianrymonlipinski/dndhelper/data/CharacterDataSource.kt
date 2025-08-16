@@ -2,14 +2,16 @@ package com.krystianrymonlipinski.dndhelper.data
 
 import com.krystianrymonlipinski.dndhelper.model.CharacterBasicsState
 import com.krystianrymonlipinski.dndhelper.model.CharacterState
+import com.krystianrymonlipinski.dndhelper.room.CharacterDao
+import com.krystianrymonlipinski.dndhelper.room.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-class CharacterSheetDataSource @Inject constructor(
+class CharacterDataSource(
+    private val characterDao: CharacterDao,
     private val coroutineContext: CoroutineContext
 ) {
     private val charactersDatabase: Flow<List<CharacterState>> = flowOf(
@@ -24,8 +26,23 @@ class CharacterSheetDataSource @Inject constructor(
         )
     )
 
-    fun getCharacterByName(name: String): Flow<CharacterState> = charactersDatabase
-        .map { characters ->
-            characters.single { it.basicsState.name == name } }
+    fun retrieveCharacterByName(name: String): Flow<CharacterEntity> = characterDao
+        .retrieveCharacterByName(name)
         .flowOn(coroutineContext)
+
+    fun retrieveAllCharacterNames(): Flow<List<String>> = characterDao
+        .retrieveAllCharacterNames()
+        .flowOn(coroutineContext)
+
+    suspend fun insertCharacter(character: CharacterEntity) = withContext(coroutineContext) {
+        characterDao.insertCharacter(character)
+    }
+
+    suspend fun updateCharacter(character: CharacterEntity) = withContext(coroutineContext) {
+        characterDao.updateCharacter(character)
+    }
+
+    suspend fun deleteCharacter(character: CharacterEntity) = withContext(coroutineContext) {
+        characterDao.deleteCharacter(character)
+    }
 }
