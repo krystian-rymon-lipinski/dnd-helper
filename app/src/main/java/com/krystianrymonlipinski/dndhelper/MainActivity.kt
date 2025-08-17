@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.krystianrymonlipinski.dndhelper.ui.character_sheet.CharacterSheetScreen
+import com.krystianrymonlipinski.dndhelper.screens.AllCharactersScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +22,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CharacterSheetScreen(Modifier, hiltViewModel<CharacterSheetViewModel>())
+                    AllCharactersScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        viewModel = hiltViewModel<AllCharactersScreenViewModel>())
                 }
             }
         }

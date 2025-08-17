@@ -1,4 +1,4 @@
-package com.krystianrymonlipinski.dndhelper.ui.character_sheet
+package com.krystianrymonlipinski.dndhelper.screens
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -29,6 +29,7 @@ import com.krystianrymonlipinski.dndhelper.R
 import com.krystianrymonlipinski.dndhelper.model.CharacterAbilityScoresState
 import com.krystianrymonlipinski.dndhelper.model.CharacterBasicsState
 
+/*
 @Composable
 fun CharacterSheetScreen(
     modifier: Modifier = Modifier,
@@ -164,3 +165,5 @@ fun NumberWithTextVertically(
 fun CharacterSheetScreenPreview() {
     CharacterSheetScreen()
 }
+
+ */
