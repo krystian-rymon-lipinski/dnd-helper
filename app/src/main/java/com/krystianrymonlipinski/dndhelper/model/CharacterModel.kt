@@ -1,6 +1,6 @@
 package com.krystianrymonlipinski.dndhelper.model
 
-class CharacterBasicsState(
+class CharacterModel(
     val name: String = "a_name",
     val level: Int = 1,
     val hitPoints: Int = 20,

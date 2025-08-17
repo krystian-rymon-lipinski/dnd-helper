@@ -20,7 +20,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,11 +47,17 @@ fun AllCharactersScreen(
 
     var currentlyChosenName: String? by rememberSaveable { mutableStateOf(null) }
 
-    if (viewModel.isAnyCharacterCreated()) ScreenWithCharacterNames(
+    if (screenState.value.isNotEmpty()) ScreenWithCharacterNames(
         modifier.fillMaxSize(),
         screenState.value,
-        onUpdateClicked = { chosenName -> currentlyChosenName = chosenName },
-        onDeleteClicked = { chosenName -> currentlyChosenName = chosenName }
+        onUpdateClicked = { chosenName ->
+            currentlyChosenName = chosenName
+            showEditNameDialog = true
+        },
+        onDeleteClicked = { chosenName ->
+            currentlyChosenName = chosenName
+            showDeleteCharacterDialog = true
+        }
     ) else ScreenWithTextAndButton(
         modifier.fillMaxSize(),
         onAddClicked = { showCreateCharacterDialog = true }
@@ -64,7 +69,7 @@ fun AllCharactersScreen(
             currentName = "",
             onConfirmClicked = { characterName ->
                 showCreateCharacterDialog = false
-                //TODO: viewModel.addCharacter()
+                viewModel.addCharacterWithOnlyName(characterName)
             },
             onDismissClicked = { showCreateCharacterDialog = false })
     }
@@ -73,9 +78,9 @@ fun AllCharactersScreen(
         EditNameDialog(
             modifier = modifier,
             currentName = currentlyChosenName ?: "",
-            onConfirmClicked = { characterName ->
+            onConfirmClicked = { newName ->
                 showEditNameDialog = false
-                //TODO: viewModel.updateCharacter()
+                viewModel.updateCharacterName(currentlyChosenName ?: "", newName)
             },
             onDismissClicked = {
                 showEditNameDialog = false
@@ -85,7 +90,10 @@ fun AllCharactersScreen(
 
     if (showDeleteCharacterDialog) {
         DeleteCharacterDialog(
-            onConfirmClicked = { }, //TODO: viewModel.deleteCharacter()
+            onConfirmClicked = {
+                showDeleteCharacterDialog = false
+                viewModel.deleteCharacterWithName(currentlyChosenName ?: "")
+            },
             onDismissClicked = {
                 showDeleteCharacterDialog = false
                 currentlyChosenName = null

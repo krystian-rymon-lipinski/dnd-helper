@@ -1,11 +1,9 @@
 package com.krystianrymonlipinski.dndhelper.data
 
-import com.krystianrymonlipinski.dndhelper.model.CharacterBasicsState
-import com.krystianrymonlipinski.dndhelper.model.CharacterState
+import com.krystianrymonlipinski.dndhelper.model.CharacterModel
 import com.krystianrymonlipinski.dndhelper.room.CharacterDao
 import com.krystianrymonlipinski.dndhelper.room.CharacterEntity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
@@ -14,17 +12,6 @@ class CharacterDataSourceDatabaseImpl(
     private val characterDao: CharacterDao,
     private val coroutineContext: CoroutineContext
 ) : CharacterDataSource {
-    private val charactersDatabase: Flow<List<CharacterState>> = flowOf(
-        listOf(
-            CharacterState(basicsState = CharacterBasicsState(name = "Trent")),
-            CharacterState(basicsState = CharacterBasicsState(name = "Bob", level = 3)),
-            CharacterState(basicsState = CharacterBasicsState(name = "Qouesh")),
-            CharacterState(basicsState = CharacterBasicsState(name = "Sameer")),
-            CharacterState(basicsState = CharacterBasicsState(name = "Robert")),
-            CharacterState(basicsState = CharacterBasicsState(name = "Jack")),
-            CharacterState(basicsState = CharacterBasicsState(name = "Qui-San")),
-        )
-    )
 
     override fun retrieveCharacterByName(name: String): Flow<CharacterEntity> = characterDao
         .retrieveCharacterByName(name)
@@ -34,15 +21,24 @@ class CharacterDataSourceDatabaseImpl(
         .retrieveAllCharacterNames()
         .flowOn(coroutineContext)
 
-    override suspend fun insertCharacter(character: CharacterEntity) = withContext(coroutineContext) {
-        characterDao.insertCharacter(character)
+    override suspend fun insertCharacter(character: CharacterModel) = withContext(coroutineContext) {
+        characterDao.insertCharacter(character.migrateToEntity())
     }
 
-    override suspend fun updateCharacter(character: CharacterEntity) = withContext(coroutineContext) {
-        characterDao.updateCharacter(character)
+    override suspend fun updateCharacterName(currentName: String, newName: String) = withContext(coroutineContext) {
+        characterDao.updateCharacterName(currentName, newName)
     }
 
-    override suspend fun deleteCharacter(character: CharacterEntity) = withContext(coroutineContext) {
-        characterDao.deleteCharacter(character)
+    override suspend fun deleteCharacterWithName(name: String) = withContext(coroutineContext) {
+        characterDao.deleteCharacterWithName(name)
     }
+
+    fun CharacterModel.migrateToEntity() = CharacterEntity(
+        name = this.name,
+        level = this.level,
+        hitPoints = this.hitPoints,
+        armorClass = this.armorClass,
+        initiative = this.initiative,
+        speed = this.speed
+    )
 }

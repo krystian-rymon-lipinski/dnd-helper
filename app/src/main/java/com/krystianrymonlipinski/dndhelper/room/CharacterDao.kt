@@ -1,10 +1,8 @@
 package com.krystianrymonlipinski.dndhelper.room
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,10 +17,10 @@ interface CharacterDao {
     @Insert
     fun insertCharacter(character: CharacterEntity)
 
-    @Update
-    fun updateCharacter(character: CharacterEntity)
+    @Query("UPDATE characters SET name = :newName WHERE name = :currentName")
+    fun updateCharacterName(currentName: String, newName: String)
 
-    @Delete
-    fun deleteCharacter(character: CharacterEntity)
+    @Query("DELETE FROM characters WHERE name = :name")
+    fun deleteCharacterWithName(name: String)
 
 }
